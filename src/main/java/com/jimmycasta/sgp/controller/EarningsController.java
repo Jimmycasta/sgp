@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -36,4 +37,18 @@ public class EarningsController {
         this.earningsService.delete(idEarnings);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/todo")
+    public ResponseEntity<Double> getTotalEarnings() {
+        return ResponseEntity.ok(this.earningsService.getAllEarning());
+    }
+
+    @GetMapping("/{fechaInicio}/{fechaFin}")
+    public ResponseEntity<Double> getEarningsByDate(@PathVariable LocalDate fechaInicio,
+                                                    @PathVariable LocalDate fechaFin) {
+        return ResponseEntity.ok(this.earningsService.getEarningsByDate(fechaInicio, fechaFin));
+
+    }
+
+
 }

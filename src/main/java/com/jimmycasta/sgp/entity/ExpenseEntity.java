@@ -24,7 +24,7 @@ public class ExpenseEntity {
     private int idExpense;
 
     @Column(length = 100)
-    private String detail;
+    private String description;
 
     @Column(columnDefinition = "DATE")
     private LocalDate date;

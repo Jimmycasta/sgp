@@ -6,7 +6,9 @@ import com.jimmycasta.sgp.service.EarningsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EarningsServiceImpl implements EarningsService {
@@ -32,5 +34,16 @@ public class EarningsServiceImpl implements EarningsService {
     @Override
     public void delete(int idEarnings) {
         this.earningsRepository.deleteById(idEarnings);
+    }
+
+    @Override
+    public double getAllEarning() {
+        return earningsRepository.getAllEarning();
+    }
+
+    @Override
+    public double getEarningsByDate(LocalDate fechaInicio, LocalDate fechaFin) {
+        Optional<Double> optional = earningsRepository.getEarningsByDate(fechaInicio, fechaFin);
+        return optional.orElse(0.0);
     }
 }

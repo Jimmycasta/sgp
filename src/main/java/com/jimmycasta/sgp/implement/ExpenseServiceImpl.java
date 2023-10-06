@@ -6,7 +6,9 @@ import com.jimmycasta.sgp.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -31,5 +33,21 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void delete(int idExpense) {
         expenseRepository.deleteById(idExpense);
+    }
+
+    @Override
+    public double getExpensesByDateAndId(LocalDate fechaInicio, LocalDate fechaFin, Integer id) {
+        Optional<Double> optional = expenseRepository.getExpensesByDateAndId(fechaInicio, fechaFin, id);
+        return optional.orElse(0.0);
+    }
+
+    @Override
+    public double getExpensesByDate(LocalDate fechaInicio, LocalDate fechaFin) {
+
+        Optional<Double> optional = expenseRepository.getExpensesByDate(fechaInicio,fechaFin);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        return 0;
     }
 }
